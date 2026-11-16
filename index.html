@@ -49,7 +49,12 @@ nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px
 nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0}
 nav ul a{color:var(--muted);font-size:14px;font-weight:500}
 nav ul a:hover{color:var(--paper);text-decoration:none}
+.navr{display:flex;align-items:center;gap:22px}
 @media (max-width:720px){nav ul{display:none}}
+.lang{font-family:var(--mono);font-size:12px;letter-spacing:.1em;padding:7px 12px;border-radius:999px;border:1px solid var(--gold-dim);background:transparent;color:var(--gold);cursor:pointer}
+.lang:hover{background:var(--gold);color:#1a1200}
+html[lang="es"] .en-only{display:none!important}
+html[lang="en"] .es-only{display:none!important}
 
 /* Hero */
 .hero{padding:72px 0 56px;display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:center}
@@ -185,17 +190,27 @@ footer .wrap{display:contents}
 <nav>
   <div class="wrap">
     <a class="brand" href="#inicio"><span class="dot" aria-hidden="true"></span>Marcelo Medina</a>
-    <ul>
-      <li><a href="#proyectos">Proyectos</a></li>
-      <li><a href="#trayectoria">Trayectoria</a></li>
-      <li><a href="#stack">Stack</a></li>
-      <li><a href="#dato-crudo">Dato Crudo</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
+    <div class="navr">
+      <ul class="es-only">
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#trayectoria">Trayectoria</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#dato-crudo">Dato Crudo</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <ul class="en-only">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#stack-en">Stack</a></li>
+        <li><a href="#raw-data">Dato Crudo</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="lang" type="button" id="langbtn" aria-label="Switch language"><span class="es-only">EN</span><span class="en-only">ES</span></button>
+    </div>
   </div>
 </nav>
 
-<main id="inicio">
+<main id="inicio" class="es-only">
 <div class="wrap">
   <header class="hero">
     <div>
@@ -457,7 +472,280 @@ footer .wrap{display:contents}
         <p class="lead">Analista de datos, consultor o desarrollador BI, 100 % remoto desde Cochabamba (UTC−4), con pago en USD para equipos internacionales. También tomo proyectos por encargo: dashboards, modelado de datos y automatización con IA.</p>
       </div>
       <ul class="links-list">
-        <li><span class="k">Email</span><span class="v" id="email">marcelomedinanp@gmail.com</span><button class="copy" type="button" data-copy="marcelomedinanp@gmail.com">copiar</button></li>
+        <li><span class="k">Email</span><span class="v" id="email">marcelomedinanp@gmail.com</span><button class="copy" type="button" data-copy="marcelomedinanp@gmail.com" data-done="copiado">copiar</button></li>
+        <li><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">linkedin.com/in/marcelomedinanp</a><span></span></li>
+        <li><span class="k">GitHub</span><a class="v" href="https://github.com/MarceloMedinaNP" target="_blank" rel="noopener">github.com/MarceloMedinaNP</a><span></span></li>
+        <li><span class="k">Portfolio</span><a class="v" href="https://datascienceportfol.io/marcelomedinanp" target="_blank" rel="noopener">datascienceportfol.io/marcelomedinanp</a><span></span></li>
+        <li><span class="k">X</span><a class="v" href="https://x.com/marcelomedinanp" target="_blank" rel="noopener">@marcelomedinanp</a><span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<main id="home" class="en-only">
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Cochabamba, Bolivia · fully remote</p>
+      <h1 style="margin-top:14px">I speak<br><em>Data &amp; AI</em></h1>
+      <p class="lead">Data analyst and Business Intelligence specialist. <strong>Twenty years</strong> running mission-critical systems at Bolivia's National Customs taught me where data comes from; the last three I have spent turning it into decisions with Power BI, SQL, dbt and generative AI.</p>
+      <div class="meta">
+        <span>MSc in Computer Science · UMSS</span>
+        <span>Native Spanish · English B2+</span>
+        <span>One data story every week</span>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#projects">See projects</a>
+        <a class="btn" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/MarceloMedinaNP" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <aside class="crudo" aria-label="Featured raw data">
+      <div class="tag"><span class="eyebrow">Raw data · Latin America 2025</span><span class="serie">#DatoCrudo</span></div>
+      <h3>Bolivia has the <b>highest female labor-force participation</b> in the region</h3>
+      <div class="bars" role="img" aria-label="Female labor-force participation 2025: Bolivia 72.9%, Peru 65.0%, Paraguay 59.0%">
+        <div class="bar lead"><span class="n">Bolivia</span><div class="track"><div class="fill" style="--w:72.9%"></div></div><span class="v">72.9 %</span></div>
+        <div class="bar"><span class="n">Peru</span><div class="track"><div class="fill" style="--w:65%;animation-delay:.12s"></div></div><span class="v">65.0 %</span></div>
+        <div class="bar"><span class="n">Paraguay</span><div class="track"><div class="fill" style="--w:59%;animation-delay:.24s"></div></div><span class="v">59.0 %</span></div>
+      </div>
+      <p class="src">Source: World Bank, ILO modeled estimates (female labor-force participation rate, ages 15+). 1990–2025 series, 20 countries. Processed in <a href="https://github.com/MarceloMedinaNP/participacion-laboral-femenina-latam" target="_blank" rel="noopener">participacion-laboral-femenina-latam</a>.</p>
+    </aside>
+  </header>
+</div>
+
+<section id="figures" aria-labelledby="h-fig">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-fig">By the numbers</h2>
+      <p>What can be measured in a career that started laying networks and now designs pipelines.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="big">21<small>years</small></div><div class="lbl">running regional systems at Bolivia's National Customs (1999–2022)</div></div>
+      <div class="stat"><div class="big">99.9<small>%</small></div><div class="lbl">uptime guaranteed for the services under my responsibility</div></div>
+      <div class="stat"><div class="big">−35<small>%</small></div><div class="lbl">processing time after the QR traceability system</div></div>
+      <div class="stat"><div class="big">8<small>models</small></div><div class="lbl">layered dbt models and 8 quality tests in the LATAM Labor Analytics pipeline</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" aria-labelledby="h-proj">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-proj">Projects with real data</h2>
+      <p>Public data from Bolivia and the region, processed end to end: ingestion, modeling, visualization and a story worth telling. Every figure carries its source.</p>
+    </div>
+    <div class="grid">
+      <article class="card feature">
+        <div class="top"><h3>2024 Census Atlas · Cochabamba</h3><span class="pill live">live</span></div>
+        <p>Interactive maps of the 2024 Census down to municipality and neighborhood: age, education, housing and access to services. Includes <b>"What's nearby"</b>, a tool that answers which facilities surround any point on the map, built for deciding where to open a branch.</p>
+        <div class="find">Cochabamba pilot for a location-analysis service aimed at businesses.</div>
+        <div class="tech"><span>2024 Census (INE)</span><span>Geodata</span><span>HTML/JS</span><span>GitHub Pages</span></div>
+        <div class="links"><a href="https://marcelomedinanp.github.io/censo2024-mapas/atlas/" target="_blank" rel="noopener">Open the atlas ↗</a><a href="https://marcelomedinanp.github.io/censo2024-mapas/cerca/" target="_blank" rel="noopener">What's nearby ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>LATAM Labor Analytics</h3><span class="pill live">repository</span></div>
+        <p>Full analytics pipeline: World Bank API ingestion in Python, load into BigQuery, layered dbt Core transformations (staging, dimensions, facts, marts), referential-integrity tests and documented lineage. The Power BI dashboard connects to the marts only.</p>
+        <div class="tech"><span>Python</span><span>BigQuery</span><span>dbt Core</span><span>Power BI</span><span>Git</span></div>
+        <div class="links"><a href="https://github.com/MarceloMedinaNP/latam-labor-analytics" target="_blank" rel="noopener">View code ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Routes of Bolivian emigration</h3><span class="pill live">live</span></div>
+        <p>Animated map of Bolivian emigration destinations 1990–2024 from UN DESA data, completed with U.S. Census and ACS figures so that destination follows the same rules as the rest.</p>
+        <div class="find">ETL and storytelling in a single visual piece.</div>
+        <div class="tech"><span>UN DESA</span><span>U.S. Census</span><span>Animated map</span></div>
+        <div class="links"><a href="https://github.com/MarceloMedinaNP/emigracion-boliviana-destinos" target="_blank" rel="noopener">View project ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Female labor-force participation</h3><span class="pill live">live</span></div>
+        <p>Interactive dashboard covering 20 Latin American countries, 1990–2025. The finding that opens this page comes from here.</p>
+        <div class="tech"><span>World Bank / ILO</span><span>Dashboard</span><span>GitHub</span></div>
+        <div class="links"><a href="https://github.com/MarceloMedinaNP/participacion-laboral-femenina-latam" target="_blank" rel="noopener">View project ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Bolivia's national budget 2019–2024</h3><span class="pill soon">publishing</span></div>
+        <p>Execution of the General State Budget: Python ETL, a six-table star schema and a side-by-side comparison of Power BI against AI-generated dashboards on the same model.</p>
+        <div class="find">Pattern found: spending piles up in December, year after year.</div>
+        <div class="tech"><span>MEFP / MPD</span><span>Star schema</span><span>Power BI</span><span>MCP</span></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Internet in Bolivia, per Ookla</h3><span class="pill soon">in progress</span></div>
+        <p>29 quarters of fixed and mobile speeds (2019–2026) by department and provider, to check advertising claims against independent measurement.</p>
+        <div class="tech"><span>Ookla</span><span>9-department panel</span><span>Dashboard</span></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Mobile wallets in Bolivia</h3><span class="pill soon">in progress</span></div>
+        <p>Adoption of mobile banking and e-wallets in Bolivia versus Latin America and the world: KPIs, outliers and the date when everything changed.</p>
+        <div class="tech"><span>2010–2025 series</span><span>Regional comparison</span></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Timber exports · #Narcomadera</h3><span class="pill">research</span></div>
+        <p>Exploratory dashboards on Bolivian forestry exports by NANDINA code, built while the case was on the public agenda. Data only, no opinion.</p>
+        <div class="tech"><span>Foreign trade</span><span>NANDINA</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="philosophy" aria-labelledby="h-phil">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-phil">Two ideas I keep repeating</h2>
+      <p>From the data-philosophy series I write on LinkedIn.</p>
+    </div>
+    <div class="quotes">
+      <div class="q">
+        <blockquote>ETL isn't technical. <b>It's philosophical.</b></blockquote>
+        <p>Extract, transform, load means deciding what counts as reality, what gets corrected and what gets through. The code comes afterwards.</p>
+      </div>
+      <div class="q">
+        <blockquote>The data that arrived clean <b>never existed.</b></blockquote>
+        <p>Quality is not a starting state but a continuous practice. That is why every piece I publish states its source and method.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience" aria-labelledby="h-exp">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-exp">Experience</h2>
+      <p>Infrastructure first, data second. Knowing how a record is produced changes how you analyze it.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl">
+        <div class="when">2023 → today</div>
+        <div>
+          <h3>Data Automation &amp; Conversational AI Specialist</h3>
+          <div class="where">Thinkingia · remote</div>
+          <ul>
+            <li>Designed automated customer-service ecosystems with <b>generative-AI and NLP chatbots</b>.</li>
+            <li>Integrated AI models with <b>Bitrix24, Notion and SQL</b>, removing silos in commercial data.</li>
+            <li>Turned user interactions into actionable insights with <b>SQL and Power BI</b>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">1999 → 2022</div>
+        <div>
+          <h3>Regional Systems Administrator · IT Tech Lead</h3>
+          <div class="where">Aduana Nacional de Bolivia (National Customs) · Cochabamba</div>
+          <ul>
+            <li>Led the regional technology transformation with <b>QR traceability systems</b> (MySQL, PHP).</li>
+            <li>Built <b>executive dashboards</b> for critical decisions (Power BI, Excel).</li>
+            <li><b>−35 %</b> processing time and <b>99.9 %</b> uptime (Windows Server, Active Directory, virtualization).</li>
+            <li>Handled sensitive personal data under confidentiality protocols.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">1998 → 1999</div>
+        <div>
+          <h3>National Network Administrator</h3>
+          <div class="where">Quimbol Lever S.A.</div>
+          <ul>
+            <li>Implemented the complete <b>corporate data center</b>.</li>
+            <li>Expanded the network across four regions with centralized communications management.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">Education</div>
+        <div>
+          <h3>MSc in Computer Science · BSc in Informatics</h3>
+          <div class="where">Universidad Mayor de San Simón (UMSS) · Cochabamba</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack-en" aria-labelledby="h-stack-en">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-stack-en">Stack</h2>
+      <p>What I use daily, what I'm adding, and what I don't know yet. In that order.</p>
+    </div>
+    <div class="stack">
+      <div class="group">
+        <h3>BI &amp; visualization</h3>
+        <div class="chips"><span>Power BI · DAX · Power Query</span><span>Qlik Sense</span><span>Looker Studio</span><span>Tableau</span><span>Advanced Excel</span><span>HTML/JS · Chart.js</span></div>
+      </div>
+      <div class="group">
+        <h3>Data</h3>
+        <div class="chips"><span>SQL Server · PostgreSQL · MySQL</span><span>Snowflake</span><span>Dimensional modeling</span><span>ETL / ELT</span><span>Python (intermediate)</span><span class="lvl">dbt Core · BigQuery (beginner)</span><span class="lvl">Microsoft Fabric (beginner)</span></div>
+      </div>
+      <div class="group">
+        <h3>AI &amp; automation</h3>
+        <div class="chips"><span>Generative AI · LLMs</span><span>Model Context Protocol (MCP)</span><span>NLP · chatbots</span><span>Bitrix24 · Notion</span><span>Git · GitHub</span></div>
+      </div>
+    </div>
+    <div class="honest"><b>What's missing is missing on purpose.</b> I don't list Airflow, Databricks, RAG or ML models in production because I haven't used them in real projects. I'm learning SQL Server stored procedures right now, in an open practice repository.</div>
+  </div>
+</section>
+
+<section id="certifications" aria-labelledby="h-cert-en">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-cert-en">Continuous learning</h2>
+      <p>Certificates from 2022 to 2026, verifiable.</p>
+    </div>
+    <ul class="certs">
+      <li><span class="y">2025</span><div>Data Analysis Bootcamp, 150 h (Power BI, Tableau, Qlik, SQL, Snowflake)<div class="who">JupiDigital</div></div></li>
+      <li><span class="y">2026</span><div>AI Course 2026: Vibe Coding and Automation, 6 h<div class="who">BIG School</div></div></li>
+      <li><span class="y">2025</span><div>Introduction to AI, 4 h · AI Workflows, 6 h<div class="who">BIG School</div></div></li>
+      <li><span class="y">2026</span><div>Foundational AI Competencies<div class="who">Revolutia</div></div></li>
+      <li><span class="y">2025</span><div>Looker Studio from scratch, 8 h<div class="who">DataMaster School</div></div></li>
+      <li><span class="y">2025</span><div>Foundations and concepts of Data Science<div class="who">Código Facilito</div></div></li>
+      <li><span class="y">2025</span><div>Applied Python<div class="who">Skilio</div></div></li>
+      <li><span class="y">2023</span><div>QA Manual &amp; Automation Bootcamp 2.0, 30 h<div class="who">Mojix</div></div></li>
+      <li><span class="y">2022</span><div>Software Tester QA<div class="who">EducaciónIT</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="raw-data" aria-labelledby="h-rd">
+  <div class="wrap">
+    <div class="dc">
+      <div>
+        <p class="eyebrow">Weekly series</p>
+        <div class="mark" id="h-rd">Dato<span>Crudo</span></div>
+      </div>
+      <div>
+        <p>"Raw data." Every week I publish one data point about Bolivia or the world, with no opinion and the whole path in plain sight: where it came from, what was done to it and how the chart was reached. Half Bolivia, half world. Published in Spanish.</p>
+        <ul class="rules">
+          <li><i>01</i><span>The original source is always cited.</span></li>
+          <li><i>02</i><span>The full method is laid out, step by step.</span></li>
+          <li><i>03</i><span>On sensitive topics, descriptive data only. Interpretation belongs to the reader.</span></li>
+        </ul>
+        <div class="where">
+          <a class="btn" href="https://x.com/marcelomedinanp" target="_blank" rel="noopener">X · @marcelomedinanp</a>
+          <a class="btn" href="https://www.facebook.com/marcelomedinanp" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">LinkedIn · Mondays</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="h-con-en">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <p class="eyebrow">Open to remote Data / BI roles</p>
+        <h2 id="h-con-en" style="margin-top:12px">Let's talk data.</h2>
+        <p class="lead">Data analyst, BI consultant or BI developer, fully remote from Cochabamba (UTC−4), paid in USD for international teams. I also take project work: dashboards, data modeling and AI-driven automation.</p>
+      </div>
+      <ul class="links-list">
+        <li><span class="k">Email</span><span class="v">marcelomedinanp@gmail.com</span><button class="copy" type="button" data-copy="marcelomedinanp@gmail.com" data-done="copied">copy</button></li>
         <li><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">linkedin.com/in/marcelomedinanp</a><span></span></li>
         <li><span class="k">GitHub</span><a class="v" href="https://github.com/MarceloMedinaNP" target="_blank" rel="noopener">github.com/MarceloMedinaNP</a><span></span></li>
         <li><span class="k">Portfolio</span><a class="v" href="https://datascienceportfol.io/marcelomedinanp" target="_blank" rel="noopener">datascienceportfol.io/marcelomedinanp</a><span></span></li>
@@ -471,16 +759,30 @@ footer .wrap{display:contents}
 <footer>
   <div class="wrap">
     <span>© 2026 J. Marcelo Medina Núñez del Prado · Cochabamba, Bolivia</span>
-    <span>Hecho con datos públicos y fuente declarada.</span>
+    <span class="es-only">Hecho con datos públicos y fuente declarada.</span><span class="en-only">Built with public data and declared sources.</span>
   </div>
 </footer>
 
 <script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('langbtn');
+  function set(l,push){
+    root.lang=l;
+    document.title=l==='en'?'Marcelo Medina · Data & AI':'Marcelo Medina · Data & AI';
+    try{localStorage.setItem('lang',l)}catch(e){}
+    if(push){try{history.replaceState(null,'',l==='en'?'#en':'#es')}catch(e){}}
+  }
+  var h=location.hash.replace('#',''),saved=null;
+  try{saved=localStorage.getItem('lang')}catch(e){}
+  var nav=(navigator.language||'').toLowerCase().indexOf('es')===0?'es':'en';
+  set(h==='en'||h==='es'?h:(saved||nav),false);
+  btn.addEventListener('click',function(){set(root.lang==='en'?'es':'en',true);window.scrollTo({top:0})});
+})();
 document.querySelectorAll('.copy').forEach(function(b){
   b.addEventListener('click',function(){
     var t=b.getAttribute('data-copy'),old=b.textContent;
     try{
-      navigator.clipboard.writeText(t).then(function(){b.textContent='copiado';setTimeout(function(){b.textContent=old},1400)},
+      navigator.clipboard.writeText(t).then(function(){b.textContent=b.getAttribute('data-done');setTimeout(function(){b.textContent=old},1400)},
         function(){b.textContent='selecciona el texto';setTimeout(function(){b.textContent=old},1800)});
     }catch(e){b.textContent='selecciona el texto';setTimeout(function(){b.textContent=old},1800)}
   });
