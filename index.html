@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marcelo Medina · Data & AI</title>
+<meta name="description" content="Marcelo Medina, analista de datos y especialista en BI desde Cochabamba, Bolivia. Power BI, SQL, dbt, IA generativa y la serie Dato Crudo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Un solo mundo visual: la noche de Cochabamba. Tinta azul profunda, oro como único acento,
+     y una cinta tricolor finísima como firma. Layout: columna editorial de 1100px, hero asimétrico 7/5. */
+  --ink:#0b1020;        /* fondo */
+  --ink-2:#121a30;      /* paneles */
+  --ink-3:#1b2544;      /* bordes y relieves */
+  --paper:#eef1f8;      /* texto principal */
+  --muted:#9aa5c4;      /* texto secundario */
+  --gold:#f2b63c;       /* acento */
+  --gold-dim:#b8862a;
+  --bol-red:#d52b1e; --bol-yellow:#f9e300; --bol-green:#007934;
+  --display:"Bricolage Grotesque", "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --max:1100px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--ink);color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--gold);text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.05;letter-spacing:-.01em}
+h2{font-size:clamp(28px,3.4vw,40px);font-weight:600}
+h3{font-size:20px;font-weight:600}
+p{margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.tricolor{height:4px;background:linear-gradient(90deg,var(--bol-red) 0 33.3%,var(--bol-yellow) 33.3% 66.6%,var(--bol-green) 66.6%)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--ink) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--ink-3)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font-family:var(--display);font-weight:700;font-size:18px;color:var(--paper);display:flex;align-items:center;gap:10px}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 20%,transparent)}
+nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:0}
+nav ul a{color:var(--muted);font-size:14px;font-weight:500}
+nav ul a:hover{color:var(--paper);text-decoration:none}
+@media (max-width:720px){nav ul{display:none}}
+
+/* Hero */
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:7fr 5fr;gap:48px;align-items:center}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:36px;padding-top:48px}}
+.hero h1{font-size:clamp(44px,7vw,92px);font-weight:700;line-height:.95}
+.hero h1 em{font-style:normal;color:var(--gold);font-variation-settings:"opsz" 96}
+.hero .lead{margin-top:22px;font-size:19px;color:var(--muted);max-width:34em}
+.hero .lead strong{color:var(--paper);font-weight:500}
+.meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px 18px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+.meta span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:middle}
+.cta{margin-top:32px;display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:8px;font-weight:600;font-size:15px;border:1px solid var(--ink-3);color:var(--paper);background:var(--ink-2);transition:transform .15s,border-color .15s}
+.btn:hover{text-decoration:none;transform:translateY(-1px);border-color:var(--gold-dim)}
+.btn.primary{background:var(--gold);color:#1a1200;border-color:var(--gold)}
+
+/* Dato Crudo card en el hero */
+.crudo{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:22px 22px 18px;position:relative;overflow:hidden}
+.crudo::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--bol-red) 0 33.3%,var(--bol-yellow) 33.3% 66.6%,var(--bol-green) 66.6%)}
+.crudo .tag{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.crudo .tag .eyebrow{color:var(--muted)}
+.crudo .tag .serie{font-family:var(--display);font-weight:700;color:var(--gold);font-size:14px;letter-spacing:.02em}
+.crudo h3{margin-top:10px;font-size:22px;line-height:1.15}
+.crudo h3 b{color:var(--gold)}
+.bars{margin-top:18px;display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:86px 1fr 52px;align-items:center;gap:10px;font-size:14px}
+.bar .n{color:var(--muted)}
+.bar .track{height:12px;background:var(--ink-3);border-radius:6px;overflow:hidden}
+.bar .fill{height:100%;background:var(--muted);border-radius:6px;width:0;animation:grow 1.1s cubic-bezier(.2,.8,.2,1) forwards}
+.bar.lead .fill{background:var(--gold)}
+.bar.lead .n,.bar.lead .v{color:var(--paper);font-weight:600}
+.bar .v{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+@keyframes grow{to{width:var(--w)}}
+.crudo .src{margin-top:16px;font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.5}
+
+/* Secciones */
+section{padding:72px 0;border-top:1px solid var(--ink-3)}
+.sec-head{display:grid;grid-template-columns:1fr 2fr;gap:24px;align-items:end;margin-bottom:36px}
+.sec-head p{color:var(--muted);max-width:40em}
+@media (max-width:760px){.sec-head{grid-template-columns:1fr;gap:12px}}
+
+/* Cifras */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:860px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:12px;padding:22px 20px}
+.stat .big{font-family:var(--display);font-size:clamp(34px,4.5vw,52px);font-weight:700;color:var(--gold);font-variant-numeric:tabular-nums;line-height:1}
+.stat .big small{font-size:.5em;color:var(--muted);font-weight:500;margin-left:4px}
+.stat .lbl{margin-top:8px;color:var(--muted);font-size:14px;line-height:1.4}
+
+/* Trayectoria */
+.timeline{position:relative;display:grid;gap:0}
+.tl{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:26px 0;border-bottom:1px dashed var(--ink-3)}
+.tl:last-child{border-bottom:none}
+@media (max-width:640px){.tl{grid-template-columns:1fr;gap:6px}}
+.tl .when{font-family:var(--mono);font-size:13px;color:var(--gold);padding-top:4px}
+.tl .where{color:var(--muted);font-size:15px;margin-top:2px}
+.tl ul{margin:12px 0 0;padding-left:18px;color:var(--muted);font-size:15.5px}
+.tl li{margin:4px 0}
+.tl li b{color:var(--paper);font-weight:500}
+
+/* Proyectos */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:960px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.grid{grid-template-columns:1fr}}
+.card{background:var(--ink-2);border:1px solid var(--ink-3);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px;transition:transform .18s,border-color .18s}
+.card:hover{transform:translateY(-3px);border-color:var(--gold-dim)}
+.card.feature{grid-column:span 2;background:linear-gradient(135deg,var(--ink-2),#17213f)}
+@media (max-width:620px){.card.feature{grid-column:span 1}}
+.card .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pill{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--ink-3);color:var(--muted)}
+.pill.live{color:#8fe3a8;border-color:#2b5a3a}
+.pill.soon{color:var(--gold);border-color:var(--gold-dim)}
+.card p{color:var(--muted);font-size:15px}
+.card .find{font-size:15px;color:var(--paper);padding:10px 12px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 7%,transparent);border-radius:0 8px 8px 0}
+.card .tech{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.card .tech span{font-family:var(--mono);font-size:11.5px;color:var(--muted);background:var(--ink);border:1px solid var(--ink-3);padding:3px 8px;border-radius:6px}
+.card .links{display:flex;gap:14px;font-size:14px;font-weight:600}
+
+/* Filosofía */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:760px){.quotes{grid-template-columns:1fr}}
+.q{padding:28px 26px;border:1px solid var(--ink-3);border-radius:14px;background:var(--ink-2)}
+.q blockquote{margin:0;font-family:var(--display);font-size:clamp(22px,2.6vw,30px);font-weight:600;line-height:1.2}
+.q blockquote b{color:var(--gold)}
+.q p{margin-top:14px;color:var(--muted);font-size:15px}
+
+/* Stack */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:860px){.stack{grid-template-columns:1fr}}
+.group h3{font-size:14px;font-family:var(--mono);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{padding:7px 12px;border-radius:8px;background:var(--ink-2);border:1px solid var(--ink-3);font-size:14px}
+.chips span.lvl{border-style:dashed;color:var(--muted)}
+.honest{margin-top:22px;padding:16px 18px;border-radius:10px;background:var(--ink-2);border:1px solid var(--ink-3);color:var(--muted);font-size:14.5px}
+.honest b{color:var(--paper);font-weight:500}
+
+/* Certificaciones */
+.certs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px;list-style:none;margin:0;padding:0}
+@media (max-width:760px){.certs{grid-template-columns:1fr}}
+.certs li{display:grid;grid-template-columns:52px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--ink-3);font-size:15px}
+.certs .y{font-family:var(--mono);font-size:13px;color:var(--gold);padding-top:2px}
+.certs .who{color:var(--muted);font-size:13.5px}
+
+/* Dato Crudo */
+.dc{display:grid;grid-template-columns:5fr 7fr;gap:40px;align-items:center}
+@media (max-width:860px){.dc{grid-template-columns:1fr}}
+.dc .mark{font-family:var(--display);font-size:clamp(48px,7vw,84px);font-weight:800;line-height:.9;letter-spacing:-.03em}
+.dc .mark span{display:block;color:var(--gold)}
+.dc p{color:var(--muted)}
+.rules{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.rules li{display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:15.5px}
+.rules li i{font-style:normal;font-family:var(--mono);color:var(--gold);font-size:13px;padding-top:3px}
+.where{margin-top:20px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* Contacto */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+.contact h2{font-size:clamp(34px,4.5vw,56px)}
+.contact .lead{margin-top:16px;color:var(--muted)}
+.links-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.links-list li{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:12px 14px;background:var(--ink-2);border:1px solid var(--ink-3);border-radius:10px;font-size:15px}
+.links-list .k{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.links-list .v{overflow-wrap:anywhere}
+.copy{font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:6px;border:1px solid var(--ink-3);background:var(--ink);color:var(--muted);cursor:pointer}
+.copy:hover{color:var(--paper);border-color:var(--gold-dim)}
+@media (max-width:520px){.links-list li{grid-template-columns:1fr;gap:4px}.copy{justify-self:start}}
+
+footer{padding:28px 0 40px;border-top:1px solid var(--ink-3);color:var(--muted);font-size:13.5px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between}
+footer .wrap{display:contents}
+</style>
+</head>
+<body>
+<div class="tricolor" aria-hidden="true"></div>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#inicio"><span class="dot" aria-hidden="true"></span>Marcelo Medina</a>
+    <ul>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#trayectoria">Trayectoria</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#dato-crudo">Dato Crudo</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="inicio">
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Cochabamba, Bolivia · 100 % remoto</p>
+      <h1 style="margin-top:14px">I speak<br><em>Data &amp; AI</em></h1>
+      <p class="lead">Analista de datos y especialista en Business Intelligence. <strong>Veinte años</strong> administrando sistemas críticos en la Aduana Nacional de Bolivia me enseñaron de dónde salen los datos; los últimos tres los dedico a convertirlos en decisiones, con Power BI, SQL, dbt e IA generativa.</p>
+      <div class="meta">
+        <span>MSc en Ciencias de la Computación · UMSS</span>
+        <span>Español nativo · Inglés B2+</span>
+        <span>Publico datos cada semana</span>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#proyectos">Ver proyectos</a>
+        <a class="btn" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/MarceloMedinaNP" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+
+    <aside class="crudo" aria-label="Dato crudo destacado">
+      <div class="tag"><span class="eyebrow">Dato crudo · América Latina 2025</span><span class="serie">#DatoCrudo</span></div>
+      <h3>Bolivia tiene la <b>mayor participación laboral femenina</b> de la región</h3>
+      <div class="bars" role="img" aria-label="Participación laboral femenina 2025: Bolivia 72,9 %, Perú 65,0 %, Paraguay 59,0 %">
+        <div class="bar lead"><span class="n">Bolivia</span><div class="track"><div class="fill" style="--w:72.9%"></div></div><span class="v">72,9 %</span></div>
+        <div class="bar"><span class="n">Perú</span><div class="track"><div class="fill" style="--w:65%;animation-delay:.12s"></div></div><span class="v">65,0 %</span></div>
+        <div class="bar"><span class="n">Paraguay</span><div class="track"><div class="fill" style="--w:59%;animation-delay:.24s"></div></div><span class="v">59,0 %</span></div>
+      </div>
+      <p class="src">Fuente: Banco Mundial, estimaciones modeladas de la OIT (tasa de participación femenina, 15+ años). Serie 1990–2025, 20 países. Procesado en el proyecto <a href="https://github.com/MarceloMedinaNP/participacion-laboral-femenina-latam" target="_blank" rel="noopener">participacion-laboral-femenina-latam</a>.</p>
+    </aside>
+  </header>
+</div>
+
+<section id="cifras" aria-labelledby="h-cifras">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-cifras">En números</h2>
+      <p>Lo que se puede medir de una carrera que empezó tendiendo redes y hoy diseña pipelines.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="big">21<small>años</small></div><div class="lbl">administrando sistemas regionales en la Aduana Nacional de Bolivia (1999–2022)</div></div>
+      <div class="stat"><div class="big">99,9<small>%</small></div><div class="lbl">de disponibilidad garantizada en los servicios bajo mi responsabilidad</div></div>
+      <div class="stat"><div class="big">−35<small>%</small></div><div class="lbl">en tiempos de procesamiento tras el sistema de trazabilidad QR</div></div>
+      <div class="stat"><div class="big">8<small>modelos</small></div><div class="lbl">dbt en capas y 8 tests de calidad en el pipeline LATAM Labor Analytics</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos" aria-labelledby="h-proy">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-proy">Proyectos con datos reales</h2>
+      <p>Datos públicos de Bolivia y la región, procesados de punta a punta: ingesta, modelado, visualización y una historia que se pueda contar. Todo con fuente declarada.</p>
+    </div>
+    <div class="grid">
+      <article class="card feature">
+        <div class="top"><h3>Atlas del Censo 2024 · Cochabamba</h3><span class="pill live">publicado</span></div>
+        <p>Mapas interactivos del Censo 2024 a nivel de municipio y barrio: edad, educación, vivienda y acceso a servicios. Incluye <b>“Qué hay cerca”</b>, una herramienta que responde qué equipamientos rodean un punto del mapa, pensada para decidir dónde abrir una sucursal.</p>
+        <div class="find">Piloto en Cochabamba como base de un servicio de análisis de localización para empresas.</div>
+        <div class="tech"><span>Censo 2024 INE</span><span>Geodatos</span><span>HTML/JS</span><span>GitHub Pages</span></div>
+        <div class="links"><a href="https://marcelomedinanp.github.io/censo2024-mapas/atlas/" target="_blank" rel="noopener">Abrir el atlas ↗</a><a href="https://marcelomedinanp.github.io/censo2024-mapas/cerca/" target="_blank" rel="noopener">Qué hay cerca ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>LATAM Labor Analytics</h3><span class="pill live">repositorio</span></div>
+        <p>Pipeline analítico completo: ingesta de la API del Banco Mundial con Python, carga en BigQuery, transformación con dbt Core en capas (staging, dimensiones, hechos, marts), tests de integridad referencial y linaje documentado. El dashboard de Power BI se conecta solo a los marts.</p>
+        <div class="tech"><span>Python</span><span>BigQuery</span><span>dbt Core</span><span>Power BI</span><span>Git</span></div>
+        <div class="links"><a href="https://github.com/MarceloMedinaNP/latam-labor-analytics" target="_blank" rel="noopener">Ver código ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Rutas de la emigración boliviana</h3><span class="pill live">publicado</span></div>
+        <p>Mapa animado de los destinos de la emigración boliviana 1990–2024 con datos de UN DESA, completados con censos y ACS de EE. UU. para integrar ese destino con las mismas reglas que el resto.</p>
+        <div class="find">ETL y storytelling en una sola pieza visual.</div>
+        <div class="tech"><span>UN DESA</span><span>U.S. Census</span><span>Mapa animado</span></div>
+        <div class="links"><a href="https://github.com/MarceloMedinaNP/emigracion-boliviana-destinos" target="_blank" rel="noopener">Ver proyecto ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Participación laboral femenina</h3><span class="pill live">publicado</span></div>
+        <p>Dashboard interactivo de 20 países latinoamericanos, serie 1990–2025. El hallazgo que abre esta página sale de aquí.</p>
+        <div class="tech"><span>Banco Mundial / OIT</span><span>Dashboard</span><span>GitHub</span></div>
+        <div class="links"><a href="https://github.com/MarceloMedinaNP/participacion-laboral-femenina-latam" target="_blank" rel="noopener">Ver proyecto ↗</a></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Presupuesto de Bolivia 2019–2024</h3><span class="pill soon">en publicación</span></div>
+        <p>Ejecución del Presupuesto General del Estado: ETL en Python, modelo estrella con seis tablas y una comparación lado a lado entre Power BI y dashboards generados con IA sobre el mismo modelo.</p>
+        <div class="find">Patrón detectado: el gasto se concentra en diciembre, año tras año.</div>
+        <div class="tech"><span>MEFP / MPD</span><span>Modelo estrella</span><span>Power BI</span><span>MCP</span></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Internet en Bolivia según Ookla</h3><span class="pill soon">en construcción</span></div>
+        <p>29 trimestres de velocidad fija y móvil (2019–2026) por departamento y proveedor, para contrastar el discurso publicitario con la medición independiente.</p>
+        <div class="tech"><span>Ookla</span><span>Panel 9 deptos.</span><span>Dashboard</span></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Billetera móvil en Bolivia</h3><span class="pill soon">en construcción</span></div>
+        <p>Adopción de banca móvil y billetera electrónica en Bolivia frente a Latinoamérica y el mundo: KPIs, outliers y la fecha en que todo cambió.</p>
+        <div class="tech"><span>Series 2010–2025</span><span>Comparación regional</span></div>
+      </article>
+
+      <article class="card">
+        <div class="top"><h3>Exportaciones de madera · #Narcomadera</h3><span class="pill">investigación</span></div>
+        <p>Dashboards de exploración sobre exportaciones forestales bolivianas por código NANDINA, construidos cuando el caso estaba en la agenda pública. Solo datos, sin opinión.</p>
+        <div class="tech"><span>Comercio exterior</span><span>NANDINA</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="filosofia" aria-labelledby="h-filo">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-filo">Dos ideas que repito</h2>
+      <p>De la serie sobre filosofía del dato que escribo en LinkedIn.</p>
+    </div>
+    <div class="quotes">
+      <div class="q">
+        <blockquote>ETL no es técnico. <b>Es filosófico.</b></blockquote>
+        <p>Extraer, transformar y cargar es decidir qué cuenta como realidad, qué se corrige y qué se deja pasar. El código viene después.</p>
+      </div>
+      <div class="q">
+        <blockquote>El dato que llegó limpio <b>nunca existió.</b></blockquote>
+        <p>La calidad no es un estado inicial sino una práctica continua. Por eso cada publicación mía declara fuente y metodología.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trayectoria" aria-labelledby="h-tray">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-tray">Trayectoria</h2>
+      <p>Infraestructura primero, datos después. Saber cómo se produce un registro cambia la manera de analizarlo.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl">
+        <div class="when">2023 → hoy</div>
+        <div>
+          <h3>Especialista en Automatización de Datos y AI Conversacional</h3>
+          <div class="where">Thinkingia · remoto</div>
+          <ul>
+            <li>Diseño de ecosistemas de atención automatizada con <b>chatbots de IA generativa y NLP</b>.</li>
+            <li>Integración de modelos de IA con <b>Bitrix24, Notion y SQL</b>, eliminando silos de datos comerciales.</li>
+            <li>Interacciones de usuarios convertidas en insights accionables con <b>SQL y Power BI</b>.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">1999 → 2022</div>
+        <div>
+          <h3>Administrador Regional de Sistemas · IT Tech Lead</h3>
+          <div class="where">Aduana Nacional de Bolivia · Cochabamba</div>
+          <ul>
+            <li>Transformación tecnológica regional con <b>sistemas de trazabilidad QR</b> (MySQL, PHP).</li>
+            <li><b>Dashboards ejecutivos</b> para decisiones críticas (Power BI, Excel).</li>
+            <li><b>−35 %</b> en tiempos de procesamiento y <b>99,9 %</b> de disponibilidad (Windows Server, Active Directory, virtualización).</li>
+            <li>Manejo de datos personales sensibles bajo protocolos de confidencialidad.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">1998 → 1999</div>
+        <div>
+          <h3>Administrador Nacional de Redes</h3>
+          <div class="where">Quimbol Lever S.A.</div>
+          <ul>
+            <li>Implementación del <b>data center corporativo</b> completo.</li>
+            <li>Expansión de red en cuatro regiones y gestión centralizada de comunicaciones.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="when">Formación</div>
+        <div>
+          <h3>MSc en Ciencias de la Computación · Licenciatura en Informática</h3>
+          <div class="where">Universidad Mayor de San Simón (UMSS) · Cochabamba</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" aria-labelledby="h-stack">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-stack">Stack</h2>
+      <p>Lo que uso a diario, lo que estoy incorporando y lo que todavía no sé. En ese orden.</p>
+    </div>
+    <div class="stack">
+      <div class="group">
+        <h3>BI y visualización</h3>
+        <div class="chips"><span>Power BI · DAX · Power Query</span><span>Qlik Sense</span><span>Looker Studio</span><span>Tableau</span><span>Excel avanzado</span><span>HTML/JS · Chart.js</span></div>
+      </div>
+      <div class="group">
+        <h3>Datos</h3>
+        <div class="chips"><span>SQL Server · PostgreSQL · MySQL</span><span>Snowflake</span><span>Modelado dimensional</span><span>ETL / ELT</span><span>Python (intermedio)</span><span class="lvl">dbt Core · BigQuery (inicial)</span><span class="lvl">Microsoft Fabric (inicial)</span></div>
+      </div>
+      <div class="group">
+        <h3>IA y automatización</h3>
+        <div class="chips"><span>IA generativa · LLMs</span><span>Model Context Protocol (MCP)</span><span>NLP · chatbots</span><span>Bitrix24 · Notion</span><span>Git · GitHub</span></div>
+      </div>
+    </div>
+    <div class="honest"><b>Lo que no está aquí es a propósito.</b> No declaro Airflow, Databricks, RAG ni modelos de ML en producción porque no los he usado en proyectos reales. Los stored procedures en SQL Server los estoy aprendiendo ahora, con un repositorio de práctica abierto.</div>
+  </div>
+</section>
+
+<section id="certificaciones" aria-labelledby="h-cert">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="h-cert">Formación continua</h2>
+      <p>Certificados de 2022 a 2026, verificables.</p>
+    </div>
+    <ul class="certs">
+      <li><span class="y">2025</span><div>Bootcamp de Análisis de Datos, 150 h (Power BI, Tableau, Qlik, SQL, Snowflake)<div class="who">JupiDigital</div></div></li>
+      <li><span class="y">2026</span><div>Curso de IA 2026: Vibe Coding y Automatizaciones, 6 h<div class="who">BIG School</div></div></li>
+      <li><span class="y">2025</span><div>Introducción a la IA, 4 h · IA Workflows, 6 h<div class="who">BIG School</div></div></li>
+      <li><span class="y">2026</span><div>Competencias Iniciales en IA<div class="who">Revolutia</div></div></li>
+      <li><span class="y">2025</span><div>Looker Studio desde cero, 8 h<div class="who">DataMaster School</div></div></li>
+      <li><span class="y">2025</span><div>Bases y conceptos de la Ciencia de Datos<div class="who">Código Facilito</div></div></li>
+      <li><span class="y">2025</span><div>Python aplicado<div class="who">Skilio</div></div></li>
+      <li><span class="y">2023</span><div>QA Manual &amp; Automation Bootcamp 2.0, 30 h<div class="who">Mojix</div></div></li>
+      <li><span class="y">2022</span><div>Software Tester QA<div class="who">EducaciónIT</div></div></li>
+    </ul>
+  </div>
+</section>
+
+<section id="dato-crudo" aria-labelledby="h-dc">
+  <div class="wrap">
+    <div class="dc">
+      <div>
+        <p class="eyebrow">Serie semanal</p>
+        <div class="mark" id="h-dc">Dato<span>Crudo</span></div>
+      </div>
+      <div>
+        <p>Cada semana publico un dato sobre Bolivia o el mundo, sin opinión y con todo el camino a la vista: de dónde salió, qué se hizo con él y cómo se llegó al gráfico. Mitad Bolivia, mitad mundo.</p>
+        <ul class="rules">
+          <li><i>01</i><span>Siempre se cita la fuente original.</span></li>
+          <li><i>02</i><span>Se detalla la metodología completa, paso a paso.</span></li>
+          <li><i>03</i><span>En temas sensibles, solo datos descriptivos. La interpretación es del lector.</span></li>
+        </ul>
+        <div class="where">
+          <a class="btn" href="https://x.com/marcelomedinanp" target="_blank" rel="noopener">X · @marcelomedinanp</a>
+          <a class="btn" href="https://www.facebook.com/marcelomedinanp" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">LinkedIn · los lunes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" aria-labelledby="h-con">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <p class="eyebrow">Disponible para roles remotos de Data / BI</p>
+        <h2 id="h-con" style="margin-top:12px">Hablemos de datos.</h2>
+        <p class="lead">Analista de datos, consultor o desarrollador BI, 100 % remoto desde Cochabamba (UTC−4), con pago en USD para equipos internacionales. También tomo proyectos por encargo: dashboards, modelado de datos y automatización con IA.</p>
+      </div>
+      <ul class="links-list">
+        <li><span class="k">Email</span><span class="v" id="email">marcelomedinanp@gmail.com</span><button class="copy" type="button" data-copy="marcelomedinanp@gmail.com">copiar</button></li>
+        <li><span class="k">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/marcelomedinanp" target="_blank" rel="noopener">linkedin.com/in/marcelomedinanp</a><span></span></li>
+        <li><span class="k">GitHub</span><a class="v" href="https://github.com/MarceloMedinaNP" target="_blank" rel="noopener">github.com/MarceloMedinaNP</a><span></span></li>
+        <li><span class="k">Portfolio</span><a class="v" href="https://datascienceportfol.io/marcelomedinanp" target="_blank" rel="noopener">datascienceportfol.io/marcelomedinanp</a><span></span></li>
+        <li><span class="k">X</span><a class="v" href="https://x.com/marcelomedinanp" target="_blank" rel="noopener">@marcelomedinanp</a><span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 J. Marcelo Medina Núñez del Prado · Cochabamba, Bolivia</span>
+    <span>Hecho con datos públicos y fuente declarada.</span>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var t=b.getAttribute('data-copy'),old=b.textContent;
+    try{
+      navigator.clipboard.writeText(t).then(function(){b.textContent='copiado';setTimeout(function(){b.textContent=old},1400)},
+        function(){b.textContent='selecciona el texto';setTimeout(function(){b.textContent=old},1800)});
+    }catch(e){b.textContent='selecciona el texto';setTimeout(function(){b.textContent=old},1800)}
+  });
+});
+</script>
+</body>
+</html>
